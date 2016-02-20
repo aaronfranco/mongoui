@@ -5,19 +5,13 @@ var express = require('express');
 var monk = require('monk');
 var config = require('./config.json');
 
-var dbHostName, dbPortNumber, dbName;
+var dbUrl;
 if (config && config.database) {
-  dbHostName = config.database.default.host;
-  dbPortNumber = config.database.default.port;
-  dbName = config.database.default.name;
+  dbUrl = config.database.default.url;
 } else {
-  dbHostName = 'localhost';
-  dbPortNumber = 27017;
-  dbName = 'mongoui';
+  dbUrl = 'localhost:27017/mongoui';
 }
-var db = monk(dbHostName + ':' +
-  dbPortNumber + '/' +
-  dbName);
+var db = monk(dbUrl);
 
 // var db= monk('localhost:27017/test')
 var derby = require('derby');
